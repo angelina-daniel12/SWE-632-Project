@@ -1,11 +1,14 @@
 # SWE-632-Project
-## UI Prototype
 
-This repo contains our initial UI prototype for the course assignment.
+# <i>RankIt!</i>
+
+A collaborative application for ranking lists of items in tiers from best to worst. This application makes it easy to find and rank different lists of items, and compare your ranking to those of your friends, and to the global average.
+
+Each day, <i>RankIt!</i> will release one new "daily" list of items, similar to the daily Wordle puzzle, or the daily snapshot taken on the social media application BeReal. Users must complete their daily ranking before continuing on to the main site.
 
 ## Tech
-- for now this is just plain HTML/CSS/JS
-- We can migrate to angular/react/vue or whatever else we want 
+- The browser-based user interface is implemented using React.js. 
+- The backend of the application is a RESTful API implemented using Python's FastAPI library, and hosted using [TODO].
 
 ## Deployment
 The app is publicly available here:

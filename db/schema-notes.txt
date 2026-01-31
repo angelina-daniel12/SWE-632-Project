@@ -1,0 +1,21 @@
+Data Types we need to be able to store:
+
+Item:
+    A single item
+    Name
+    An image of the item
+        - BLOB or base64 encoded string?
+
+ItemSet:
+    A list of 5-10 unranked Items, all related in some way such as by category
+    Examples: 
+        [pineapple, guava, banana, passionfruit, coconut]
+        [golden retriever, chihuahua, dachshund, beagle, dalmation]
+
+Template:
+    An unranked ItemSet, along with a name and description,
+    and optionally a category to belong to (movies, foods, etc.)
+
+TierRanking:
+    A user's custom tier ranking, where they ranked each item from a
+    Template's ItemSet into a tier (S-A-B-C-D-F)
