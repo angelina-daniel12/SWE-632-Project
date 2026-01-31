@@ -7,11 +7,24 @@ sys.path.insert(0, str(parent_dir))
 
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
-from typing import List
 from db import models
 from db import database
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
+
+# allow cors for localhost 3000 (react dev server)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Mount static files directory
+app.mount("/static", StaticFiles(directory="../db/images"), name="static")
 
 @app.get("/")
 def hello_world():

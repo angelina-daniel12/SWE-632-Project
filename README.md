@@ -8,7 +8,7 @@ Each day, <i>RankIt!</i> will release one new "daily" list of items, similar to 
 
 ## Tech
 - The browser-based user interface is implemented using React.js. 
-- The backend of the application is a RESTful API implemented using Python's FastAPI library, and hosted using [TODO].
+- The backend of the application is a RESTful API implemented using Python's FastAPI library, and is being publicly exposed via ngrok reverse proxy.
 
 ## Deployment
 The app is publicly available here:
@@ -18,3 +18,6 @@ https://angelina-daniel12.github.io/SWE-632-Project/
 - Clone
 - Create a branch for your changes
 - Open a PR when ready
+
+## Starting local FastAPI server
+- python -m uvicorn main:app --reload
