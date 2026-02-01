@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 # MySQL connection string
 password = "Balboa#85"
-schema = "rank_it"
+schema = "meta_tier"
 hostname = "localhost"
 port = 3306
 DATABASE_URL = f"mysql+pymysql://root:{password}@{hostname}:{port}/{schema}"

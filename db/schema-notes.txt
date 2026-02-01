@@ -1,21 +1,109 @@
-Data Types we need to be able to store:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Item:
-    A single item
-    Name
-    An image of the item
-        - BLOB or base64 encoded string?
+Saving tier lists:
 
-ItemSet:
-    A list of 5-10 unranked Items, all related in some way such as by category
-    Examples: 
-        [pineapple, guava, banana, passionfruit, coconut]
-        [golden retriever, chihuahua, dachshund, beagle, dalmation]
+HTTP request method: POST
+Endpoint: /create/tier-list
 
-Template:
-    An unranked ItemSet, along with a name and description,
-    and optionally a category to belong to (movies, foods, etc.)
+Request body structure:
+{
+  "user_id": 1,
+  "template_id": 3,
+  "item_rankings": [
+    {"item_id": 1, "tier": "S", "position": 0},
+    {"item_id": 2, "tier": "S", "position": 1},
+    {"item_id": 5, "tier": "A", "position": 0},
+    {"item_id": 6, "tier": "B", "position": 0},
+    {"item_id": 4, "tier": "C", "position": 0},
+    {"item_id": 3, "tier": "D", "position": 0}
+  ]
+}
 
-TierRanking:
-    A user's custom tier ranking, where they ranked each item from a
-    Template's ItemSet into a tier (S-A-B-C-D-F)
+Example CURL request:
+
+curl -X POST "https://interadditive-benny-matrilineal.ngrok-free.dev/create/tier-list"
+    -H "Content-Type: application/json"
+    -d '{
+      "user_id": 1,
+      "template_id": 2,
+      "item_rankings": [
+        {"item_id": 16, "tier": "A", "position": 1},
+        {"item_id": 17, "tier": "C", "position": 1},
+        {"item_id": 18, "tier": "S", "position": 1},
+        {"item_id": 19, "tier": "A", "position": 2},
+        {"item_id": 20, "tier": "B", "position": 1}
+      ]
+    }'
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Fetching saved tier lists for a user:
+
+HTTP request method: GET
+Endpoint: /tier-lists/:userId
+
+Response body structure:
+[
+  {
+    "id": 1,
+    "user_id": 1,
+    "template_id": 2
+  },
+  {
+    "id": 2,
+    "user_id": 1,
+    "template_id": 2
+  }
+]
+
+Example CURL request:
+
+curl -X GET "https://interadditive-benny-matrilineal.ngrok-free.dev/tier-lists/1"
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Fetching details for a single saved tier list:
+
+HTTP request method: GET
+Endpoint: /tier-list/:tierListId
+
+Response body structure:
+{
+  "id": 2,
+  "user_id": 1,
+  "template_id": 2,
+  "created_at": "2026-02-01T00:06:21",
+  "item_rankings": [
+    {
+      "item_id": 18,
+      "tier": "S",
+      "position": 1
+    },
+    {
+      "item_id": 16,
+      "tier": "A",
+      "position": 1
+    },
+    {
+      "item_id": 19,
+      "tier": "A",
+      "position": 2
+    },
+    {
+      "item_id": 20,
+      "tier": "B",
+      "position": 1
+    },
+    {
+      "item_id": 17,
+      "tier": "C",
+      "position": 1
+    }
+  ]
+}
+
+Example CURL request:
+
+curl -X GET "https://interadditive-benny-matrilineal.ngrok-free.dev/tier-list/2"
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

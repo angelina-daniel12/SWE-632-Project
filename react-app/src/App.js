@@ -7,6 +7,9 @@ import Home from 'components/home/HomePage.js';
 import MyRankings from 'components/rankings/MyRankingsPage.js';
 import ExplorePage from 'components/explore/ExplorePage.js';
 import TemplatePage from 'components/explore/TemplatePage.js';
+import DevPage from 'components/dev/DevPage.jsx';
+import CreateTemplatePage from 'components/dev/CreateTemplatePage.jsx';
+import CreateItemsPage from 'components/dev/CreateItemsPage.jsx';
 
 const theme = createTheme({
   palette: {
@@ -31,6 +34,9 @@ function App() {
             <Route path="/templates" element={<ExplorePage />} />
             <Route path="/templates/:templateId" element={<TemplatePage />} />
             <Route path="/my-rankings" element={<MyRankings />} />
+            <Route path="/dev" element={<DevPage />} />
+            <Route path="/dev/new-template" element={<CreateTemplatePage />} />
+            <Route path="/dev/new-items" element={<CreateItemsPage />} />
           </Routes>
         </BrowserRouter>
       </ApiProvider>

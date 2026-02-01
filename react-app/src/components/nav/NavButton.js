@@ -10,6 +10,7 @@ export default function NavButton({ title, path, locked = false }) {
             color="inherit"
             sx={{
                 fontWeight: 500,
+                fontFamily: 'Poppins, sans-serif',
                 cursor: locked ? 'not-allowed' : 'pointer'
             }}
             startIcon={locked ? <LockIcon fontSize="small" /> : null}
