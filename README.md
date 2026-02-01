@@ -12,7 +12,7 @@ Each day, <i>MetaTier</i> will release one new "daily" list of items, similar to
 
 ## Deployment
 The app is publicly available here:
-https://angelina-daniel12.github.io/SWE-632-Project/ 
+https://meta-tier.vercel.app
 
 ## Workflow
 - Clone
