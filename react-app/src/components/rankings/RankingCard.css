@@ -17,7 +17,7 @@
     background-color: black;
     color: white;
     border-radius: 15px;
-    width: 7rem;
+    width: 15rem; /* set to 7 if there are two buttons */
     height: 2.5rem;
     font-size: 20px;
     font-weight: bold;
