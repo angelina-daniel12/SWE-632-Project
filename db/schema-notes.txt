@@ -21,8 +21,8 @@ Request body structure:
 
 Example CURL request:
 
-curl -X POST "https://interadditive-benny-matrilineal.ngrok-free.dev/create/tier-list"
-    -H "Content-Type: application/json"
+curl -X POST "https://interadditive-benny-matrilineal.ngrok-free.dev/create/tier-list" \
+    -H "Content-Type: application/json" \
     -d '{
       "user_id": 1,
       "template_id": 2,

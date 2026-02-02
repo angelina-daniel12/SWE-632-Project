@@ -16,6 +16,7 @@ class Template(Base):
     
     # Relationship
     items = relationship("Item", back_populates="template", cascade="all, delete-orphan")
+    tier_lists = relationship("TierList", back_populates="template")
 
 class Item(Base):
     __tablename__ = "items"
@@ -37,6 +38,7 @@ class TierList(Base):
     created_at = Column(TIMESTAMP, default=lambda: datetime.now(timezone.utc), nullable=False)
     
     # Relationship
+    template = relationship("Template", back_populates="tier_lists")
     item_rankings = relationship("ItemRanking", back_populates="tier_list", cascade="all, delete-orphan")
 
 class ItemRanking(Base):
@@ -55,6 +57,14 @@ class ItemRanking(Base):
     # Relationship
     tier_list = relationship("TierList", back_populates="item_rankings")
 
+class User(Base):
+    __tablename__ = "users"
+    
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(String(255), unique=True, nullable=False)
+    email = Column(String(255), unique=True, nullable=False)
+    created_at = Column(TIMESTAMP, default=lambda: datetime.now(timezone.utc), nullable=False)
+
 # Pydantic Schemas (what we send to client via API)
 class ItemSchema(BaseModel):
     id: int
@@ -71,6 +81,7 @@ class TemplateDetailSchema(BaseModel):
 
 class ItemRankingSchema(BaseModel):
     item_id: int
+    item_name: str
     tier: str # S A B C D F
     position: int
 
@@ -78,6 +89,7 @@ class TierListSchema(BaseModel):
     id: int
     user_id: int
     template_id: int
+    template_name: str
     
     class Config:
         from_attributes = True
@@ -91,6 +103,10 @@ class TierListDetailSchema(BaseModel):
     
     class Config:
         from_attributes = True
+
+class GlobalTierListAverageSchema(BaseModel):
+    template_id: int
+    item_rankings: List[ItemRankingSchema]
 
 # Schemas for POST requests / responses
 
@@ -139,3 +155,8 @@ class TierListCreateResponseSchema(BaseModel):
     
     class Config:
         from_attributes = True
+
+# Create User Schemas
+class UserCreateSchema(BaseModel):
+    username: str
+    email: Optional[str] = None

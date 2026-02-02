@@ -12,7 +12,7 @@ DATABASE_URL = f"mysql+pymysql://root:{password}@{hostname}:{port}/{schema}"
 # Create engine
 engine = create_engine(
     DATABASE_URL,
-    echo=True  # Set to False in production (logs all SQL queries)
+    echo=False  # Set to False in production (logs all SQL queries)
 )
 
 # Create SessionLocal class
