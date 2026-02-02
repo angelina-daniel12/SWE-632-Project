@@ -1,11 +1,11 @@
-import { Box, Chip, Icon, IconButton } from '@mui/material';
+import { Box, Chip } from '@mui/material';
 import { Clear } from '@mui/icons-material';
 import { useEffect, useRef, useState } from 'react';
 import { draggable } from  '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 function RankingItemCard({ item, location, onMoveToUnranked }) {
     const ref = useRef(null);
-    const [dragging, setDragging] = useState(false);
+    const [, setDragging] = useState(false);
 
     useEffect(() => {
         console.log("item", item)

@@ -98,7 +98,7 @@ function RankModal({ open, handleClose, templateId }) {
         }).catch(error => {
             setError(error.message);
         });
-    }, [open]);
+    }, [open, SERVER_URL, templateId]);
 
     return (
         <Modal open={open} onClose={onClose}>

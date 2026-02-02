@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Box, List, ListItem, ListItemText } from "@mui/material"
+import { Box } from "@mui/material"
 import { dropTargetForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter"
 
 import RankingItemCard from "./RankingItemCard";

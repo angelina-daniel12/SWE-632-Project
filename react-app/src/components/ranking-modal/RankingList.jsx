@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { List, ListItem, ListItemText } from "@mui/material";
+import { useEffect } from "react";
+import { List, ListItem } from "@mui/material";
 
 import RankingTier from "./RankingTier";
 import { monitorForElements } from "@atlaskit/pragmatic-drag-and-drop/element/adapter";
@@ -67,7 +67,7 @@ function RankingList({ tiers, setTiers }) {
 
             }
         })
-    }, [])
+    }, [setTiers])
 
     return (
         <List>
