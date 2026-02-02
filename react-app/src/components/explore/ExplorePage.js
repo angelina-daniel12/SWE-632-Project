@@ -1,14 +1,25 @@
-import { useState, useEffect, useMemo } from "react";
-import axios from "axios";
-import { useApi } from "contexts/ApiContext";
-import LandingGrid from "../sharedComponents/LandingGrid";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useApi } from 'contexts/ApiContext';
+import { Container, Typography, Box } from '@mui/material';
+import TemplateCard from './TemplateCard';
+
+import RankingModal from 'components/ranking-modal/RankModal';
 
 export default function ExplorePage() {
   const { SERVER_URL } = useApi();
 
-  const [templates, setTemplates] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+    const [templates, setTemplates] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [openRankingModal, setOpenRankingModal] = useState(false);
+    const [selectedTemplateId, setSelectedTemplateId] = useState(null);
+
+    const handleModalClose = () => {
+        console.log("modal closed, resetting state")
+        setOpenRankingModal(false);
+        setSelectedTemplateId(null);
+    }
 
   useEffect(() => {
     axios
@@ -40,6 +51,9 @@ export default function ExplorePage() {
   if (error) return <div>Error loading templates: {error}</div>;
 
   return (
+    <>
+    <RankingModal open={openRankingModal} handleClose={handleModalClose} templateId={selectedTemplateId} />
+</>
     <LandingGrid
       title="Explore Templates"
       subtitle="Pick and fill out your template"

@@ -1,11 +1,10 @@
 import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-export default function TemplateCard({ template }) {
+export default function TemplateCard({ template, onClick }) {
     return (
         <Box
-            component={Link}
-            to={`/templates/${template.id}`}
+            onClick={onClick}
             sx={{
                 mt: 4,
                 p: 2,
