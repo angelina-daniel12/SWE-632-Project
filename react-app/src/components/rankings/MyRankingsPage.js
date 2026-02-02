@@ -18,7 +18,7 @@ export default function MyRankingsPage() {
             
             // Always check if the response is okay (status 200-299)
             if (!response.ok) {
-              console.log('HTTP error ${response.status}')
+              console.log(`HTTP error ${response.status}`)
             }
 
             const data = await response.json();
@@ -30,7 +30,7 @@ export default function MyRankingsPage() {
         };
 
         fetchUsers();
-    }, []); // Empty array ensures this only runs once
+    }, [dataItems]);
 
 
     return (
