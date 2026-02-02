@@ -90,6 +90,7 @@ class TierListSchema(BaseModel):
     user_id: int
     template_id: int
     template_name: str
+    created_at: datetime
     
     class Config:
         from_attributes = True

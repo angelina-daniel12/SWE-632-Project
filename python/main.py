@@ -66,12 +66,16 @@ def get_tier_lists_by_user(user_id: int, db: Session = Depends(database.get_db))
         .filter(models.TierList.user_id == user_id) \
         .all()
     
+    for tl in tier_lists:
+        print(f"{tl.template.name} {tl.created_at}")
+    
     return [
         {
             "id": tl.id,
             "user_id": tl.user_id,
             "template_id": tl.template_id,
-            "template_name": tl.template.name
+            "template_name": tl.template.name,
+            "created_at": tl.created_at
         }
         for tl in tier_lists
     ]
