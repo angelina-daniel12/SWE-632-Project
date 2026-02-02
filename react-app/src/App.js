@@ -6,7 +6,6 @@ import Navbar from 'components/nav/Navbar.js';
 import Home from 'components/home/HomePage.js';
 import MyRankings from 'components/rankings/MyRankingsPage.js';
 import ExplorePage from 'components/explore/ExplorePage.js';
-import TemplatePage from 'components/explore/TemplatePage.js';
 import DevPage from 'components/dev/DevPage.jsx';
 import CreateTemplatePage from 'components/dev/CreateTemplatePage.jsx';
 import CreateItemsPage from 'components/dev/CreateItemsPage.jsx';
@@ -43,7 +42,6 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/templates" element={<ExplorePage />} />
-        <Route path="/templates/:templateId" element={<TemplatePage />} />
         <Route path="/my-rankings" element={<MyRankings />} />
         <Route path="/dev" element={<DevPage />} />
         <Route path="/dev/new-template" element={<CreateTemplatePage />} />
