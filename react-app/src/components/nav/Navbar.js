@@ -10,7 +10,7 @@ export default function Navbar() {
 
                 {/* Navigation Buttons */}
                 <Box sx={{ marginLeft: 'auto', display: 'flex', gap: 1 }}>
-                    <NavButton title="Daily" path="/daily" locked={true} />
+                    <NavButton title="Global" path="/global" />
                     <NavButton title="Explore" path="/templates" />
                     <NavButton title="My Rankings" path="/my-rankings" />
                 </Box>

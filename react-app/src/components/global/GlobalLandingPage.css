@@ -1,0 +1,57 @@
+.globalLanding {
+  min-height: calc(100vh - 72px);
+  background: #ffffff;
+  padding: 32px 16px;
+}
+
+.globalLandingContainer {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.globalLandingTitle {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111827;
+  margin: 0;
+}
+
+.globalLandingSubtitle {
+  margin-top: 6px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.globalLandingGrid {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.globalLandingCard {
+  text-decoration: none;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+.globalLandingCard:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+  border-color: #d1d5db;
+}
+
+.globalLandingCardTitle {
+  font-size: 18px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.globalLandingCardDesc {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #6b7280;
+}

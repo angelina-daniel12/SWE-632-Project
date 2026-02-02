@@ -10,6 +10,8 @@ import TemplatePage from 'components/explore/TemplatePage.js';
 import DevPage from 'components/dev/DevPage.jsx';
 import CreateTemplatePage from 'components/dev/CreateTemplatePage.jsx';
 import CreateItemsPage from 'components/dev/CreateItemsPage.jsx';
+import GlobalPage from 'components/global/GlobalPage.js';
+import GlobalLandingPage from "./components/global/GlobalLandingPage";
 
 const theme = createTheme({
   palette: {
@@ -37,6 +39,8 @@ function App() {
             <Route path="/dev" element={<DevPage />} />
             <Route path="/dev/new-template" element={<CreateTemplatePage />} />
             <Route path="/dev/new-items" element={<CreateItemsPage />} />
+            <Route path="/global" element={<GlobalLandingPage />} />
+            <Route path="/global/:templateId" element={<GlobalPage />} />
           </Routes>
         </BrowserRouter>
       </ApiProvider>

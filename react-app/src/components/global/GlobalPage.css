@@ -1,0 +1,181 @@
+
+.globalPage {
+  min-height: calc(100vh - 72px);
+  background: #ffffff;
+  padding: 16px 12px;
+}
+
+.container {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.top {
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 24px;
+  line-height: 1.1;
+  margin: 0;
+  font-weight: 800;
+  color: #111827;
+}
+
+.subtitle {
+  margin-top: 4px;
+  color: #6b7280;
+  font-size: 12px;
+}
+
+/* --- Tier rows --- */
+.tiers {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.tierRow {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+/* --- Tier label background colors --- */
+.tierLabel {
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  border-right: 1px solid #e5e7eb;
+  color: #111827;
+}
+
+/* Tier-specific colors */
+.tierRow:nth-child(1) .tierLabel { background: #FF7F7F; }                /* S */
+.tierRow:nth-child(2) .tierLabel { background: #1D3557; color:#fff;}     /* A */
+.tierRow:nth-child(3) .tierLabel { background: #457B9D; color:#fff;  }   /* B */
+.tierRow:nth-child(4) .tierLabel { background: #A8DADC;}                 /* C */
+.tierRow:nth-child(5) .tierLabel { background: #F1FAEE; }                /* D */
+.tierRow:nth-child(6) .tierLabel { background: #FFD6A5; }                /* E */
+.tierRow:nth-child(7) .tierLabel { background: #FFE5D9; }                /* F */
+
+.tierContent {
+  padding: 10px 12px;
+}
+
+/* --- FLEX layout so cards size naturally --- */
+.tierGridCompact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+
+.itemCardCompact {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  align-items: center;
+  gap: 10px;
+
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border-radius: 14px;
+  padding: 10px 12px;
+
+  flex: 1 1 240px;
+  max-width: 380px;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 10px 22px rgba(0, 0, 0, 0.06);
+
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.itemCardCompact:hover {
+  transform: translateY(-2px);
+  border-color: rgba(17, 24, 39, 0.14);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 16px 34px rgba(0, 0, 0, 0.10);
+}
+
+.thumb {
+  width: 58px;
+  height: 58px;
+  border-radius: 12px;
+  object-fit: cover;
+  display: block;
+  background: #f3f4f6;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.10),
+    0 8px 16px rgba(0, 0, 0, 0.10);
+}
+
+/* Text block */
+.text {
+  min-width: 0; /* enables proper wrapping/ellipsis */
+}
+
+.text .name {
+  font-weight: 800;
+  font-size: 14px;
+  color: #111827;
+  line-height: 1.15;
+
+  /* allow wrapping for long titles but keep it tidy */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;         /* max 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.text .meta {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 700;
+}
+
+/* --- Optional templateId chip --- */
+.idChip {
+  margin-top: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.idChipValue {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #eef2ff;
+  color: #3730a3;
+  font-weight: 700;
+}
+
+/* --- Responsive tweaks --- */
+@media (max-width: 640px) {
+  .tierRow { grid-template-columns: 56px 1fr; }
+  .itemCardCompact { flex: 1 1 100%; max-width: none; }
+}
