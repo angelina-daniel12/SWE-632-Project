@@ -39,7 +39,6 @@ export default function NavLogo() {
                 variant="h6"
                 component="div"
                 sx={{
-                    fontFamily: 'Poppins, sans-serif',
                     color: 'black',
                     marginLeft: '12px'
                 }}
