@@ -1,47 +1,44 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./GlobalLandingPage.css";
+import React, { useMemo } from "react";
+import LandingGrid from "../sharedComponents/LandingGrid";
 
-const GLOBAL_TEMPLATES = [
+export const GLOBAL_TEMPLATES = [
   {
-    id: "movies",
-    label: "Movies",
-    description: "See how movies rank globally across all users",
+    slug: "cutestdogbreeds",
+    apiId: 1,
+    label: "Cutest Dog Breeds",
+    description: "See what global concessus is on dog breeds",
   },
   {
-    id: "tv",
-    label: "TV Shows",
-    description: "Global consensus for TV series",
+    slug: "fruit",
+    apiId: 2,
+    label: "Fruit",
+    description: "See everyone's favorite fruit",
   },
   {
-    id: "albums",
-    label: "Music Albums",
-    description: "Community-ranked albums",
+    slug: "rockbands",
+    apiId: 3,
+    label: "Rock Bands",
+    description: "Global consensus for Rock Bands",
   },
 ];
 
 export default function GlobalLandingPage() {
-  return (
-    <div className="globalLanding">
-      <div className="globalLandingContainer">
-        <h1 className="globalLandingTitle">Global Rankings</h1>
-        <p className="globalLandingSubtitle">
-          Choose a category to view global consensus rankings.
-        </p>
+  const items = useMemo(
+    () =>
+      GLOBAL_TEMPLATES.map((t) => ({
+        key: t.slug,
+        title: t.label,
+        description: t.description,
+        to: `/global/${t.slug}`,
+      })),
+    []
+  );
 
-        <div className="globalLandingGrid">
-          {GLOBAL_TEMPLATES.map((t) => (
-            <Link
-              key={t.id}
-              to={`/global/${t.id}`}
-              className="globalLandingCard"
-            >
-              <div className="globalLandingCardTitle">{t.label}</div>
-              <div className="globalLandingCardDesc">{t.description}</div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </div>
+  return (
+    <LandingGrid
+      title="Global Rankings"
+      subtitle="Choose a category to view global consensus rankings."
+      items={items}
+    />
   );
 }
