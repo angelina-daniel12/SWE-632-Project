@@ -3,11 +3,16 @@ import { createContext, useContext, useState, useEffect } from 'react';
 export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
+    const [username, setUsername] = useState(null);
     const [userId, setUserId] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        const storedUsername = localStorage.getItem('username');
+        if (storedUsername) {
+            setUsername(storedUsername);
+        }
         const storedUserId = localStorage.getItem('userId');
         if (storedUserId) {
             setUserId(storedUserId);
@@ -16,8 +21,10 @@ export function AuthProvider({ children }) {
         setLoading(false);
     }, []);
 
-    const login = (id) => {
+    const login = (username, id) => {
+        localStorage.setItem('username', username);
         localStorage.setItem('userId', id);
+        setUsername(username);
         setUserId(id);
         setIsAuthenticated(true);
         console.log("userID set")
@@ -30,7 +37,7 @@ export function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{ userId, isAuthenticated, loading, login, logout }}>
+        <AuthContext.Provider value={{ username, userId, isAuthenticated, loading, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
