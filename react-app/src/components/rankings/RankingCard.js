@@ -1,4 +1,5 @@
 import Card from 'react-bootstrap/Card';
+import { Link } from 'react-router-dom';
 import "components/rankings/RankingCard.css"
 
 function RankingCard(props){
@@ -10,7 +11,9 @@ function RankingCard(props){
                     <p className="text-start category-text">  {props.body}</p>
                 </div>
                 <div style={{flex:1, display: "flex",alignItems:"center"}}>
-                    <button className="card-button" style={{margin:'0px 20px 0px 20px'}}> View </button>
+                    <Link to={`/my-rankings/${props.id}`} state={{ template_name: props.title}}>
+                        <button className="card-button" style={{margin:'0px 20px 0px 20px'}}> View </button>
+                    </Link>
                     {/*<button className="card-button" style={{width: "8rem", height: "2.6rem"}}> Compare </button>*/}
                 </div>
             </div>

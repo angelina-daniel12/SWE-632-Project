@@ -72,7 +72,7 @@ export default function MyRankingsPage() {
                         .map(key => (
                             <div>
                                 <div className="centered-horizontally">
-                                    <RankingCard title={key.template_name} body={DATE_FORMATTER.format(convertToEST(key.created_at))} />
+                                    <RankingCard title={key.template_name} body={DATE_FORMATTER.format(convertToEST(key.created_at))} id={key.id} />
                                 </div>
 
                                 <div style={{ paddingTop: "5px" }}>
