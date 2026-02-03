@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import "./SingleRank.css";
@@ -28,18 +28,18 @@ const mockRanking = {
 };
 
 const TIER_ORDER = ["S", "A", "B", "C", "D", "E", "F"];
-function EmptyState({ label }) {
-  return (
-    <div className="emptyState">
-      <div className="emptyIconWrap">
-        <div className="emptyIcon">?</div>
-      </div>
-      <div className="emptyText">
-        Hmmm... there are no items in <strong>{label}</strong>.
-      </div>
-    </div>
-  );
-}
+// function EmptyState({ label }) {
+//   return (
+//     <div className="emptyState">
+//       <div className="emptyIconWrap">
+//         <div className="emptyIcon">?</div>
+//       </div>
+//       <div className="emptyText">
+//         Hmmm... there are no items in <strong>{label}</strong>.
+//       </div>
+//     </div>
+//   );
+// }
 
 // Converts backend response -> UI model page expects
 function toUiRanking(apiData, template_name) {
@@ -100,10 +100,10 @@ export default function RankingPage() {
 
   const [ranking, setRanking] = useState(mockRanking);
 
-  const baseUrl = useMemo(
-    () => "https://interadditive-benny-matrilineal.ngrok-free.dev",
-    []
-  );
+  // const baseUrl = useMemo(
+  //   () => "https://interadditive-benny-matrilineal.ngrok-free.dev",
+  //   []
+  // );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -133,7 +133,7 @@ export default function RankingPage() {
     return () => {
       // Optional cleanup code
     };
-  }, []);
+  }, [rankingId, template_name]);
         
 
 
