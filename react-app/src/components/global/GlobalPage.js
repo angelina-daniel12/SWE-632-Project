@@ -70,6 +70,7 @@ function TierSection({ label, items }) {
 }
 
 export default function GlobalPage() {
+  // Route: /global/:templateId (templateId is a slug like "fruit" or "tv shows")
   const { templateId } = useParams();
   const { SERVER_URL } = useApi();
 
