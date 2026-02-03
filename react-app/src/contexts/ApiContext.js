@@ -7,10 +7,10 @@ const ApiContext = createContext();
 
 export function ApiProvider({ children }) {
     // Swap between production and local server URLs as needed
-    // const SERVER_URL_PROD = 'https://interadditive-benny-matrilineal.ngrok-free.dev';
-    const SERVER_URL = 'https://metatier.turkmenkaan.xyz:8000'
     // const SERVER_URL_LOCAL = 'http://localhost:8000';
-    // const SERVER_URL = SERVER_URL_PROXY;
+    const SERVER_URL_PROXY = 'https://interadditive-benny-matrilineal.ngrok-free.dev';
+    // const SERVER_URL_PROD = 'http://metatier.turkmenkaan.xyz:8000'
+    const SERVER_URL = SERVER_URL_PROXY;
     
     return (
         <ApiContext.Provider value={{ SERVER_URL }}>

@@ -2,6 +2,8 @@ import { Container, Typography, Box } from '@mui/material';
 import RankingCard from 'components/rankings/RankingCard'
 import 'components/rankings/MyRankingsPage.css'
 import React, { useState, useEffect } from 'react';
+import { useAuth } from 'contexts/AuthContext';
+import { useApi } from 'contexts/ApiContext';
 
 const DATE_FORMATTER = new Intl.DateTimeFormat("en-US", {
     weekday: "short",
@@ -13,12 +15,14 @@ const DATE_FORMATTER = new Intl.DateTimeFormat("en-US", {
 })
 
 export default function MyRankingsPage() {
+    const { SERVER_URL } = useApi();
+    const { userId } = useAuth();
     const [dataItems, setDataItems] = useState([]);
 
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await fetch('https://interadditive-benny-matrilineal.ngrok-free.dev/tier-lists/2', {
+                const response = await fetch(`${SERVER_URL}/tier-lists/${userId}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'ngrok-skip-browser-warning': 'true'
@@ -38,7 +42,7 @@ export default function MyRankingsPage() {
         };
 
         fetchUsers();
-    }, []);
+    }, [SERVER_URL, userId]);
 
 
     return (

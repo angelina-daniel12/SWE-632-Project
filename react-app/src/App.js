@@ -2,7 +2,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import { ApiProvider } from 'contexts/ApiContext.js';
-import Navbar from 'components/nav/Navbar.js';
+import Navbar from 'components/nav/Navbar.jsx';
 import Home from 'components/home/HomePage.js';
 import MyRankings from 'components/rankings/MyRankingsPage.js';
 import ExplorePage from 'components/explore/ExplorePage.js';
