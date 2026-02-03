@@ -14,6 +14,13 @@ const DATE_FORMATTER = new Intl.DateTimeFormat("en-US", {
     minute: "2-digit",
 })
 
+// Helper function to convert UTC to EST
+const convertToEST = (timestamp) => {
+    const date = new Date(timestamp);
+    date.setHours(date.getHours() - 5);
+    return date;
+}
+
 export default function MyRankingsPage() {
     const { SERVER_URL } = useApi();
     const { userId } = useAuth();
@@ -60,17 +67,19 @@ export default function MyRankingsPage() {
 
                 <div className="vertical-stack">
 
-                    {dataItems.map(key => (
-                        <div>
-                            <div className="centered-horizontally">
-                                <RankingCard title={key.template_name} body={DATE_FORMATTER.format(new Date(key.created_at))} />
-                            </div>
+                    {dataItems
+                        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                        .map(key => (
+                            <div>
+                                <div className="centered-horizontally">
+                                    <RankingCard title={key.template_name} body={DATE_FORMATTER.format(convertToEST(key.created_at))} />
+                                </div>
 
-                            <div style={{ paddingTop: "5px" }}>
-                                <p></p>
+                                <div style={{ paddingTop: "5px" }}>
+                                    <p></p>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
 
                 </div>
 
