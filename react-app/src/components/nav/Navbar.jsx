@@ -1,10 +1,14 @@
 import { AppBar, Toolbar, Box } from '@mui/material';
-import NavLogo from 'components/nav/NavLogo.js';
-import NavButton from 'components/nav/NavButton.js';
+import NavLogo from 'components/nav/NavLogo.jsx';
+import NavButton from 'components/nav/NavButton.jsx';
+import ProfileLogo from 'components/nav/ProfileLogo.jsx';
+import { useAuth } from 'contexts/AuthContext';
 
 export default function Navbar() {
+    const { isAuthenticated } = useAuth();
+
     return (
-        <AppBar position="static">
+        <AppBar position="sticky">
             <Toolbar>
                 <NavLogo />
 
@@ -13,6 +17,7 @@ export default function Navbar() {
                     <NavButton title="Global" path="/global" />
                     <NavButton title="Explore" path="/templates" />
                     <NavButton title="My Rankings" path="/my-rankings" />
+                    {isAuthenticated && <ProfileLogo />}
                 </Box>
             </Toolbar>
         </AppBar>

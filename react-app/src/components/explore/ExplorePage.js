@@ -28,7 +28,6 @@ export default function ExplorePage() {
             }
         })
             .then(response => {
-                console.log("templates",response.data)
                 setTemplates(response.data);
                 setLoading(false);
             })
@@ -48,8 +47,8 @@ export default function ExplorePage() {
                 <Typography variant="h3" fontWeight="bold">
                     Explore Templates
                 </Typography>
-                {templates.map(template => (
-                    <TemplateCard template={template} onClick={() => {
+                {templates.map((template, index) => (
+                    <TemplateCard key={index} template={template} onClick={() => {
                         setSelectedTemplateId(template.id);
                         setOpenRankingModal(true);
                     }} />

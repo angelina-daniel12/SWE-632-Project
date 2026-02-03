@@ -15,7 +15,7 @@ function AuthModal({ open, onClose }) {
             username: username
         }).then(response => {
             if (response.data.id) {
-                login(response.data.id)
+                login(response.data.username, response.data.id)
                 if (onClose) onClose()
             }
         }).catch(error => {
