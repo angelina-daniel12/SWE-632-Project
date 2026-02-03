@@ -1,4 +1,3 @@
-
 .globalPage {
   min-height: calc(100vh - 72px);
   background: #ffffff;
@@ -42,6 +41,7 @@
   border-radius: 14px;
   overflow: hidden;
   background: #ffffff;
+  height: 90px;
 }
 
 /* --- Tier label background colors --- */
@@ -178,4 +178,41 @@
 @media (max-width: 640px) {
   .tierRow { grid-template-columns: 56px 1fr; }
   .itemCardCompact { flex: 1 1 100%; max-width: none; }
+}
+
+
+/* =========================
+   Empty State
+   ========================= */
+.emptyState {
+  margin-top: 48px;
+  padding: 64px 16px;
+  border-radius: 18px;
+  background: #eef2f6;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.emptyIconWrap {
+  width: 92px;
+  height: 92px;
+  border-radius: 999px;
+  background: #0b0f14;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+}
+
+.emptyIcon {
+  color: #ffffff;
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.emptyText {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
 }

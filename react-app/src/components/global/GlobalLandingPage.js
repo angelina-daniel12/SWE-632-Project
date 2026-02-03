@@ -1,23 +1,30 @@
+// ================================
+// src/components/global/GlobalLandingPage.js
+// ================================
 import React from "react";
 import { Link } from "react-router-dom";
 import "./GlobalLandingPage.css";
 
-const GLOBAL_TEMPLATES = [
-  {
-    id: "movies",
-    label: "Movies",
-    description: "See how movies rank globally across all users",
+export const GLOBAL_TEMPLATES = [
+{
+    slug: "cutestdogbreeds",
+    apiId: 1,
+    label: "Cutest Dog Breeds",
+    description: "See what global concessus is on dog breeds",
   },
   {
-    id: "tv",
+    slug: "fruit",
+    apiId: 2,
+    label: "Fruit",
+    description: "See everyone's favorite fruit",
+  },
+  {
+    slug: "tvshows",
+    apiId: 3,
     label: "TV Shows",
     description: "Global consensus for TV series",
   },
-  {
-    id: "albums",
-    label: "Music Albums",
-    description: "Community-ranked albums",
-  },
+
 ];
 
 export default function GlobalLandingPage() {
@@ -32,8 +39,8 @@ export default function GlobalLandingPage() {
         <div className="globalLandingGrid">
           {GLOBAL_TEMPLATES.map((t) => (
             <Link
-              key={t.id}
-              to={`/global/${t.id}`}
+              key={t.slug}
+              to={`/global/${t.slug}`}
               className="globalLandingCard"
             >
               <div className="globalLandingCardTitle">{t.label}</div>
