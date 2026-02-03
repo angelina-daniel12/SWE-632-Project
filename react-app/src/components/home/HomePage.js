@@ -1,7 +1,9 @@
 import { Container, Typography, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 
+
 export default function Home() {
+    
     return (
         <Container maxWidth="md">
             <Box sx={{ textAlign: 'center', mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

@@ -4,12 +4,22 @@ import { useApi } from 'contexts/ApiContext';
 import { Container, Typography, Box } from '@mui/material';
 import TemplateCard from './TemplateCard';
 
+import RankingModal from 'components/ranking-modal/RankModal';
+
 export default function ExplorePage() {
     const { SERVER_URL } = useApi();
 
     const [templates, setTemplates] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [openRankingModal, setOpenRankingModal] = useState(false);
+    const [selectedTemplateId, setSelectedTemplateId] = useState(null);
+
+    const handleModalClose = () => {
+        console.log("modal closed, resetting state")
+        setOpenRankingModal(false);
+        setSelectedTemplateId(null);
+    }
 
     useEffect(() => {
         axios.get(`${SERVER_URL}/templates`, {
@@ -18,6 +28,7 @@ export default function ExplorePage() {
             }
         })
             .then(response => {
+                console.log("templates",response.data)
                 setTemplates(response.data);
                 setLoading(false);
             })
@@ -32,12 +43,16 @@ export default function ExplorePage() {
 
     return (
         <Container maxWidth="md">
+            <RankingModal open={openRankingModal} handleClose={handleModalClose} templateId={selectedTemplateId} />
             <Box sx={{ textAlign: 'center', mt: 8 }}>
                 <Typography variant="h3" fontWeight="bold">
                     Explore Templates
                 </Typography>
                 {templates.map(template => (
-                    <TemplateCard template={template} />
+                    <TemplateCard template={template} onClick={() => {
+                        setSelectedTemplateId(template.id);
+                        setOpenRankingModal(true);
+                    }} />
                 ))}
             </Box>
         </Container>
