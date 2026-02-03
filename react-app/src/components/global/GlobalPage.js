@@ -1,58 +1,26 @@
-// src/components/global/GlobalPage.js
 import React, { useEffect, useMemo, useState } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useApi } from "contexts/ApiContext";
 import "./GlobalPage.css";
 import { GLOBAL_TEMPLATES } from "./GlobalLandingPage";
 
-// Template-specific placeholder images (keyed by numeric template_id)
 const TEMPLATE_IMAGES = {
-  1: "https://images.unsplash.com/photo-1517849845537-4d257902454a?auto=format&fit=crop&w=400&q=60", // dog
-  2: "https://images.unsplash.com/photo-1547514701-42782101795e?auto=format&fit=crop&w=400&q=60", // fruit
+  1: "https://images.unsplash.com/photo-1560807707-8cc77767d783?auto=format&fit=crop&w=400&q=60", // dog
+  2: "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?auto=format&fit=crop&w=400&q=60", // fruit
   3: "https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=400&q=60", // tv
-};
-
-const DEFAULT_IMG = TEMPLATE_IMAGES[1];
-
-// Fallback mock (API fails)
-const mockRanking = {
-  title: "Global Ranking",
-  subtitle: "Global Ranking",
-  tiers: [
-    { label: "Tier S", items: [] },
-    { label: "Tier A", items: [] },
-    { label: "Tier B", items: [] },
-    { label: "Tier C", items: [] },
-    { label: "Tier D", items: [] },
-    { label: "Tier E", items: [] },
-    { label: "Tier F", items: [] },
-  ],
 };
 
 const TIER_ORDER = ["S", "A", "B", "C", "D", "E", "F"];
 
-// Build slug -> numeric apiId map from the landing page constants
 const SLUG_TO_API_ID = GLOBAL_TEMPLATES.reduce((acc, t) => {
-  acc[t.slug.toLowerCase()] = t.apiId;
+  acc[String(t.slug).toLowerCase()] = t.apiId;
   return acc;
 }, {});
 
-function EmptyState({ label }) {
-  return (
-    <div className="emptyState">
-      <div className="emptyIconWrap">
-        <div className="emptyIcon">?</div>
-      </div>
-      <div className="emptyText">
-        Hmmm... there are no items in <strong>{label}</strong>.
-      </div>
-    </div>
-  );
-}
-
-// Converts backend response -> UI model page expects
+/** Convert backend response -> UI model */
 function toUiRanking(apiData, slug, label) {
-  const templateImg = TEMPLATE_IMAGES[apiData?.template_id] || DEFAULT_IMG;
-
+  const templateImg = TEMPLATE_IMAGES[apiData.template_id] || TEMPLATE_IMAGES[1];
   const buckets = new Map(TIER_ORDER.map((t) => [t, []]));
 
   for (const item of apiData.item_rankings || []) {
@@ -102,73 +70,78 @@ function TierSection({ label, items }) {
 }
 
 export default function GlobalPage() {
-  // Route: /global/:templateId (templateId is a slug like "fruit" or "tv shows")
   const { templateId } = useParams();
+  const { SERVER_URL } = useApi();
 
-  const [ranking, setRanking] = useState(mockRanking);
-  const [loading, setLoading] = useState(false);
+  const [ranking, setRanking] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [isEmpty, setIsEmpty] = useState(false);
 
-  const baseUrl = useMemo(
-    () => "https://interadditive-benny-matrilineal.ngrok-free.dev",
-    []
-  );
-
-  // Find template metadata from your landing list
   const templateMeta = useMemo(() => {
     const slug = (templateId || "").toLowerCase();
     return GLOBAL_TEMPLATES.find((t) => t.slug.toLowerCase() === slug) || null;
   }, [templateId]);
 
+  const apiTemplateId = useMemo(() => {
+    const slug = (templateId || "").toLowerCase();
+    return SLUG_TO_API_ID[slug];
+  }, [templateId]);
+
+  // If API returns empty, show empty state page
+  const isEmpty = useMemo(() => {
+    if (!ranking) return false;
+    return ranking.tiers.every((t) => (t.items || []).length === 0);
+  }, [ranking]);
+
   useEffect(() => {
     if (!templateId) return;
 
-    const slug = String(templateId).toLowerCase();
-    const apiTemplateId = SLUG_TO_API_ID[slug];
-
     if (!apiTemplateId) {
       setError(`Unknown template "${templateId}"`);
-      setRanking(mockRanking);
-      setIsEmpty(false);
+      setRanking(null);
+      setLoading(false);
       return;
     }
 
-    const fetchGlobal = async () => {
-      setLoading(true);
-      setError("");
-      setIsEmpty(false);
+    setLoading(true);
+    setError("");
 
-      try {
-        const response = await fetch(`${baseUrl}/global/${apiTemplateId}`, {
-          headers: {
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        const items = data?.item_rankings || [];
-        setIsEmpty(items.length === 0);
-
-        const ui = toUiRanking(data, slug, templateMeta?.label);
+    axios
+      .get(`${SERVER_URL}/global/${apiTemplateId}`, {
+        headers: { "ngrok-skip-browser-warning": "true" },
+      })
+      .then((response) => {
+        const data = response.data;
+        const ui = toUiRanking(data, templateId, templateMeta?.label);
         setRanking(ui);
-      } catch (e) {
-        setError(e?.message || "Failed to load global rankings");
-        setIsEmpty(false);
-        setRanking(toUiRanking({ template_id: null, item_rankings: [] }, slug, templateMeta?.label));
-      } finally {
         setLoading(false);
-      }
-    };
+      })
+      .catch((err) => {
+        setError(err.message || "Failed to load global rankings");
+        setRanking(null);
+        setLoading(false);
+      });
+  }, [SERVER_URL, templateId, apiTemplateId, templateMeta]);
 
-    fetchGlobal();
-  }, [templateId, baseUrl, templateMeta]);
+  if (loading) return <div className="subtitle">Loading global ranking…</div>;
+  if (error) return <div className="subtitle">Error: {error}</div>;
+  if (!ranking) return null;
+
+  // Empty state instead of showing blank tiers (for now)
+  if (isEmpty) {
+    return (
+      <div className="globalPage">
+        <div className="container">
+          <div className="emptyState">
+            <div className="emptyIconWrap">
+              <div className="emptyIcon">?</div>
+            </div>
+            <div className="emptyText">Hmmm... there no items in this template.</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="globalPage">
@@ -180,28 +153,11 @@ export default function GlobalPage() {
           </div>
         </div>
 
-        {loading ? <div className="subtitle">Loading global ranking…</div> : null}
-        {error ? <div className="subtitle">Error: {error}</div> : null}
-
-        {!loading && !error && isEmpty ? (
-          <EmptyState label={templateMeta?.label || templateId} />
-        ) : (
-          <div className="tiers">
-            {ranking.tiers.map((tier) => (
-              <TierSection
-                key={tier.label}
-                label={tier.label}
-                items={tier.items}
-              />
-            ))}
-          </div>
-        )}
-
-        {templateId ? (
-          <div className="idChip">
-            Template: <span className="idChipValue">{templateId}</span>
-          </div>
-        ) : null}
+        <div className="tiers">
+          {ranking.tiers.map((tier) => (
+            <TierSection key={tier.label} label={tier.label} items={tier.items} />
+          ))}
+        </div>
       </div>
     </div>
   );

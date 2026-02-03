@@ -1,12 +1,8 @@
-// ================================
-// src/components/global/GlobalLandingPage.js
-// ================================
-import React from "react";
-import { Link } from "react-router-dom";
-import "./GlobalLandingPage.css";
+import React, { useMemo } from "react";
+import LandingGrid from "../sharedComponents/LandingGrid";
 
 export const GLOBAL_TEMPLATES = [
-{
+  {
     slug: "cutestdogbreeds",
     apiId: 1,
     label: "Cutest Dog Breeds",
@@ -19,36 +15,30 @@ export const GLOBAL_TEMPLATES = [
     description: "See everyone's favorite fruit",
   },
   {
-    slug: "tvshows",
+    slug: "rockbands",
     apiId: 3,
-    label: "TV Shows",
-    description: "Global consensus for TV series",
+    label: "Rock Bands",
+    description: "Global consensus for Rock Bands",
   },
-
 ];
 
 export default function GlobalLandingPage() {
-  return (
-    <div className="globalLanding">
-      <div className="globalLandingContainer">
-        <h1 className="globalLandingTitle">Global Rankings</h1>
-        <p className="globalLandingSubtitle">
-          Choose a category to view global consensus rankings.
-        </p>
+  const items = useMemo(
+    () =>
+      GLOBAL_TEMPLATES.map((t) => ({
+        key: t.slug,
+        title: t.label,
+        description: t.description,
+        to: `/global/${t.slug}`,
+      })),
+    []
+  );
 
-        <div className="globalLandingGrid">
-          {GLOBAL_TEMPLATES.map((t) => (
-            <Link
-              key={t.slug}
-              to={`/global/${t.slug}`}
-              className="globalLandingCard"
-            >
-              <div className="globalLandingCardTitle">{t.label}</div>
-              <div className="globalLandingCardDesc">{t.description}</div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </div>
+  return (
+    <LandingGrid
+      title="Global Rankings"
+      subtitle="Choose a category to view global consensus rankings."
+      items={items}
+    />
   );
 }
