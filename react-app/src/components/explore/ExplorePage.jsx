@@ -112,7 +112,7 @@ export default function ExplorePage() {
                     <Typography
                         sx={{
                             fontSize: '12px',
-                            fontWeight: 700,
+                            fontWeight: 1000,
                             letterSpacing: '0.08em',
                             textTransform: 'uppercase',
                             color: '#6b7280',

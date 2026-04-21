@@ -177,6 +177,28 @@ export default function Home() {
               >
                 Explore Global Rankings
               </Button>
+
+              <Button
+                component={Link}
+                to="/my-rankings"
+                variant="outlined"
+                sx={{
+                  px: 4,
+                  py: 1.4,
+                  borderRadius: '999px',
+                  textTransform: 'none',
+                  fontWeight: 700,
+                  fontSize: '1rem',
+                  color: 'white',
+                  borderColor: 'rgba(255,255,255,0.35)',
+                  '&:hover': {
+                    borderColor: 'white',
+                    backgroundColor: 'rgba(255,255,255,0.06)',
+                  },
+                }}
+              >
+                Saved Rankings
+              </Button>
             </Box>
           </Box>
         </Container>

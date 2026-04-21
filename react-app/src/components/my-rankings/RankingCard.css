@@ -25,6 +25,13 @@
     outline: none;
 }
 
+.card-button:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+}
+
+
 .card-button-delete {
     background-color: white;
     color: #e24b4a;
